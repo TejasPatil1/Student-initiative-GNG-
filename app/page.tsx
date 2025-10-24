@@ -1,25 +1,53 @@
 "use client";
 
-import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom"
-import { useState } from "react"
+import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-import { PYQsPage } from "@/components/PFG/pyqs"
-import { AssignmentsPage } from "@/components/PFG/assignments"
-import { CoursesPage } from "@/components/PFG/courses"
-import { ChatRoom } from "@/components/PFG/chat-room"
-import { WhatsAppPage } from "@/components/PFG/whatsapp"
-import { ContributorsPage } from "@/components/PFG/contributors"
-import { Hero } from "@/components/PFG/hero"
-import { AboutPFLSection } from "@/components/sections/About"
-import { PeerLearningSection } from "@/components/sections/peer-learning"
-import { OpportunitiesSection } from "@/components/sections/opportunities"
-import { LearningTracksSection } from "@/components/sections/tracks"
-import { JoinPFLSection } from "@/components/sections/join"
-import { ContributorSection } from "@/components/sections/contributor"
+import { PYQsPage } from "@/components/PFG/pyqs";
+import { AssignmentsPage } from "@/components/PFG/assignments";
+import { CoursesPage } from "@/components/PFG/courses";
+import { ChatRoom } from "@/components/PFG/chat-room";
+import { WhatsAppPage } from "@/components/PFG/whatsapp";
+import { ContributorsPage } from "@/components/PFG/contributors";
+import { Hero } from "@/components/PFG/hero";
+import { AboutPFLSection } from "@/components/sections/About";
+import { PeerLearningSection } from "@/components/sections/peer-learning";
+import { OpportunitiesSection } from "@/components/sections/opportunities";
+import { LearningTracksSection } from "@/components/sections/tracks";
+import { JoinPFLSection } from "@/components/sections/join";
+import { ContributorSection } from "@/components/sections/contributor";
 
+// ---------------- Video Background (client-only) ----------------
+function VideoBackground() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return (
+    <div className="fixed inset-0 z-0 overflow-hidden">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
+        <source src="/Background.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-black/40"></div>
+    </div>
+  );
+}
+
+// ---------------- Navbar ----------------
 function Navbar() {
-  const [open, setOpen] = useState(false)
-  const linkBase = "nav-link"
+  const [open, setOpen] = useState(false);
+  const linkBase = "nav-link";
+
   return (
     <header className="sticky top-0 z-50 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
@@ -54,7 +82,7 @@ function Navbar() {
           </NavLink>
         </div>
       </nav>
-      {open ? (
+      {open && (
         <div className="border-t bg-background/95 md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col px-4 py-2">
             <NavLink to="/" end className={linkBase} onClick={() => setOpen(false)}>
@@ -80,15 +108,16 @@ function Navbar() {
             </NavLink>
           </div>
         </div>
-      ) : null}
+      )}
     </header>
-  )
+  );
 }
 
+// ---------------- Home Page ----------------
 function HomePage() {
   return (
     <>
-      <Hero/>
+      <Hero />
       <AboutPFLSection />
       <PeerLearningSection />
       <OpportunitiesSection />
@@ -96,30 +125,16 @@ function HomePage() {
       <JoinPFLSection />
       <ContributorSection />
     </>
-  )
+  );
 }
 
+// ---------------- App ----------------
 export default function App() {
   return (
     <Router>
-      <div className="fixed inset-0 z-0 overflow-hidden">
-  <video
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="absolute top-0 left-0 w-full h-full object-cover"
-  >
-    <source src="/Background.mp4" type="video/mp4" />
-  </video>
-  {/* optional dark overlay for readability */}
-  <div className="absolute inset-0 bg-black/40"></div>
-</div>
-<div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-   </div>
+      <VideoBackground />
       <Navbar />
-      {/* tighter leading and better rhythm */}
-      <main className="mx-auto max-w-6xl px-4 py-10 md:py-12">
+      <main className="mx-auto max-w-6xl px-4 py-10 md:py-12 relative z-10">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/pyqs" element={<PYQsPage />} />
@@ -130,9 +145,11 @@ export default function App() {
           <Route path="/contributors" element={<ContributorsPage />} />
         </Routes>
       </main>
-      <footer className="mx-auto max-w-6xl border-t px-4 py-8 text-sm text-muted-foreground">
-        <p className="text-center">© {new Date().getFullYear()} Programming for Losers (PFL). Built for students.</p>
+      <footer className="mx-auto max-w-6xl border-t px-4 py-8 text-sm text-muted-foreground relative z-10">
+        <p className="text-center">
+          © {new Date().getFullYear()} Programming for Losers (PFL). Built for students.
+        </p>
       </footer>
     </Router>
-  )
+  );
 }
