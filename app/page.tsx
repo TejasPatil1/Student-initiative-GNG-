@@ -3,14 +3,14 @@
 import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom"
 import { useState } from "react"
 
-import { PYQsPage } from "@/components/pfl/pyqs"
-import { AssignmentsPage } from "@/components/pfl/assignments"
-import { CoursesPage } from "@/components/pfl/courses"
-import { ChatRoom } from "@/components/pfl/chat-room"
-import { WhatsAppPage } from "@/components/pfl/whatsapp"
-import { ContributorsPage } from "@/components/pfl/contributors"
-import { Hero } from "@/components/pfl/hero"
-import { AboutPFLSection } from "@/components/sections/about-pfl"
+import { PYQsPage } from "@/components/PFG/pyqs"
+import { AssignmentsPage } from "@/components/PFG/assignments"
+import { CoursesPage } from "@/components/PFG/courses"
+import { ChatRoom } from "@/components/PFG/chat-room"
+import { WhatsAppPage } from "@/components/PFG/whatsapp"
+import { ContributorsPage } from "@/components/PFG/contributors"
+import { Hero } from "@/components/PFG/hero"
+import { AboutPFLSection } from "@/components/sections/About"
 import { PeerLearningSection } from "@/components/sections/peer-learning"
 import { OpportunitiesSection } from "@/components/sections/opportunities"
 import { LearningTracksSection } from "@/components/sections/tracks"
@@ -25,7 +25,7 @@ function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-md bg-primary/10 ring-1 ring-primary/25"></div>
-          <span className="font-mono text-lg tracking-wide">PFL</span>
+          <span className="font-mono text-lg tracking-wide">PFG</span>
         </div>
         <button className="md:hidden btn" aria-label="Toggle menu" onClick={() => setOpen((v) => !v)}>
           Menu
