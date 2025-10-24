@@ -1,7 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { PYQsPage } from "@/components/PFG/pyqs";
 import { AssignmentsPage } from "@/components/PFG/assignments";
@@ -17,35 +18,15 @@ import { LearningTracksSection } from "@/components/sections/tracks";
 import { JoinPFLSection } from "@/components/sections/join";
 import { ContributorSection } from "@/components/sections/contributor";
 
-// ---------------- Video Background (client-only) ----------------
-function VideoBackground() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  return (
-    <div className="fixed inset-0 z-0 overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
-      >
-        <source src="/Background.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-black/40"></div>
-    </div>
-  );
-}
+// ---------------- Dynamic Video Background (client-only) ----------------
+const VideoBackground = dynamic(
+  () => import("@/components/ui/VideoBackground"),
+  { ssr: false } // important: prevents server-side rendering
+);
 
 // ---------------- Navbar ----------------
 function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
   const linkBase = "nav-link";
 
   return (
@@ -55,57 +36,33 @@ function Navbar() {
           <div className="h-9 w-9 rounded-md bg-primary/10 ring-1 ring-primary/25"></div>
           <span className="font-mono text-lg tracking-wide">PFG</span>
         </div>
-        <button className="md:hidden btn" aria-label="Toggle menu" onClick={() => setOpen((v) => !v)}>
+        <button
+          className="md:hidden btn"
+          aria-label="Toggle menu"
+          onClick={() => setOpen((v) => !v)}
+        >
           Menu
         </button>
         <div className="hidden items-center gap-1 md:flex">
-          <NavLink to="/" end className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>
-            Home
-          </NavLink>
-          <NavLink to="/pyqs" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>
-            PYQs
-          </NavLink>
-          <NavLink to="/assignments" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>
-            Assignments
-          </NavLink>
-          <NavLink to="/courses" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>
-            Courses
-          </NavLink>
-          <NavLink to="/chat" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>
-            Chat Room
-          </NavLink>
-          <NavLink to="/whatsapp" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>
-            WhatsApp
-          </NavLink>
-          <NavLink to="/contributors" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>
-            Contributors
-          </NavLink>
+          <NavLink to="/" end className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>Home</NavLink>
+          <NavLink to="/pyqs" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>PYQs</NavLink>
+          <NavLink to="/assignments" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>Assignments</NavLink>
+          <NavLink to="/courses" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>Courses</NavLink>
+          <NavLink to="/chat" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>Chat Room</NavLink>
+          <NavLink to="/whatsapp" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>WhatsApp</NavLink>
+          <NavLink to="/contributors" className={({ isActive }) => `${linkBase} ${isActive ? "nav-link-active" : ""}`}>Contributors</NavLink>
         </div>
       </nav>
       {open && (
         <div className="border-t bg-background/95 md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col px-4 py-2">
-            <NavLink to="/" end className={linkBase} onClick={() => setOpen(false)}>
-              Home
-            </NavLink>
-            <NavLink to="/pyqs" className={linkBase} onClick={() => setOpen(false)}>
-              PYQs
-            </NavLink>
-            <NavLink to="/assignments" className={linkBase} onClick={() => setOpen(false)}>
-              Assignments
-            </NavLink>
-            <NavLink to="/courses" className={linkBase} onClick={() => setOpen(false)}>
-              Courses
-            </NavLink>
-            <NavLink to="/chat" className={linkBase} onClick={() => setOpen(false)}>
-              Chat Room
-            </NavLink>
-            <NavLink to="/whatsapp" className={linkBase} onClick={() => setOpen(false)}>
-              WhatsApp
-            </NavLink>
-            <NavLink to="/contributors" className={linkBase} onClick={() => setOpen(false)}>
-              Contributors
-            </NavLink>
+            <NavLink to="/" end className={linkBase} onClick={() => setOpen(false)}>Home</NavLink>
+            <NavLink to="/pyqs" className={linkBase} onClick={() => setOpen(false)}>PYQs</NavLink>
+            <NavLink to="/assignments" className={linkBase} onClick={() => setOpen(false)}>Assignments</NavLink>
+            <NavLink to="/courses" className={linkBase} onClick={() => setOpen(false)}>Courses</NavLink>
+            <NavLink to="/chat" className={linkBase} onClick={() => setOpen(false)}>Chat Room</NavLink>
+            <NavLink to="/whatsapp" className={linkBase} onClick={() => setOpen(false)}>WhatsApp</NavLink>
+            <NavLink to="/contributors" className={linkBase} onClick={() => setOpen(false)}>Contributors</NavLink>
           </div>
         </div>
       )}
