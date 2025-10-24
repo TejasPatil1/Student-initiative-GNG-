@@ -1,8 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 
 import { PYQsPage } from "@/components/PFG/pyqs";
 import { AssignmentsPage } from "@/components/PFG/assignments";
@@ -10,6 +9,7 @@ import { CoursesPage } from "@/components/PFG/courses";
 import { ChatRoom } from "@/components/PFG/chat-room";
 import { WhatsAppPage } from "@/components/PFG/whatsapp";
 import { ContributorsPage } from "@/components/PFG/contributors";
+
 import { Hero } from "@/components/PFG/hero";
 import { AboutPFLSection } from "@/components/sections/About";
 import { PeerLearningSection } from "@/components/sections/peer-learning";
@@ -18,15 +18,35 @@ import { LearningTracksSection } from "@/components/sections/tracks";
 import { JoinPFLSection } from "@/components/sections/join";
 import { ContributorSection } from "@/components/sections/contributor";
 
-// ---------------- Dynamic Video Background (client-only) ----------------
-const VideoBackground = dynamic(
-  () => import("@/components/ui/VideoBackground"),
-  { ssr: false } // important: prevents server-side rendering
-);
+// ---------------- Client-only Video Background ----------------
+function VideoBackground() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return (
+    <div className="fixed inset-0 z-0 overflow-hidden">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
+        <source src="/Background.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-black/40"></div>
+    </div>
+  );
+}
 
 // ---------------- Navbar ----------------
 function Navbar() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const linkBase = "nav-link";
 
   return (
