@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 
 import { PYQsPage } from "@/components/PFG/pyqs";
@@ -19,16 +19,20 @@ import { JoinPFLSection } from "@/components/sections/join";
 import { ContributorSection } from "@/components/sections/contributor";
 
 // ---------------- Video Background ----------------
-function VideoBackground() {
+export function VideoBackground() {
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => setMounted(true), []);
-
   if (!mounted) return null;
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
-      <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
         <source src="/Background.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/40"></div>
@@ -37,7 +41,7 @@ function VideoBackground() {
 }
 
 // ---------------- Navbar ----------------
-function Navbar() {
+export function Navbar() {
   const [open, setOpen] = useState(false);
   const linkBase = "nav-link";
 
