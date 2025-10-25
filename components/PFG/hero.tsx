@@ -12,7 +12,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-grid-surface" aria-hidden="true" />
 
       {/* Transparent rectangle behind text */}
-      <div className="relative z-10 mx-auto mt-25 max-w-6xl rounded-xl bg-white/20 backdrop-blur-md p-25 shadow-lg text-center">
+      <div className="relative z-10 mx-auto mt-25 max-w-8xl rounded-xl bg-white/20 backdrop-blur-md p-25 shadow-lg text-center">
         <h1 className="font-[var(--font-orbitron)] text-3xl md:text-5xl tracking-tight text-white">
           GECG Web project
         </h1>
