@@ -14,8 +14,8 @@ export function LearningTracksSection() {
       <div className="mx-auto max-w-6xl px-4 md:px-6 w-full">
         <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Our Learning Tracks</h2>
         <p className="mt-3 text-muted-foreground leading-relaxed max-w-3xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque volutpat condimentum velit. Class aptent
-          taciti sociosqu ad litora torquent per conubia nostra.
+           While we're not a formal educational institution, we organize study groups and learning tracks based on member interests,
+            and you can find courses on the courses page.
         </p>
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
           {tracks.map((t) => (

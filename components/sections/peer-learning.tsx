@@ -12,9 +12,10 @@ export function PeerLearningSection() {
               Peer Learning, Not Teaching
             </h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales ligula in libero. Sed dignissim
-              lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas
-              mattis.
+                At <strong>PFG</strong>, we learn and grow together.<br />
+  We share experiences, tackle coding challenges, and collaborate on projects.<br />
+  It's all about collective growth and peer support.
+
             </p>
           </div>
         </div>

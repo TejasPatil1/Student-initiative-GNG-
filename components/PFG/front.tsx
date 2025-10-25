@@ -10,10 +10,10 @@ export function Hero() {
       {/* Transparent rectangle behind text with mobile-friendly padding */}
       <div className="relative z-10 mx-auto mt-25 max-w-6xl rounded-xl bg-white/20 backdrop-blur-md p-4 sm:p-8 md:p-12 text-center">
         <h1 className="font-[var(--font-orbitron)] text-2xl sm:text-3xl md:text-5xl tracking-tight text-white">
-          GECG Web project
+          Programming for GenZs
         </h1>
         <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
-          Where coding failures become programming triumphs.
+          Turning coding struggles into success stories. Be part of our student-driven community of future programmers and innovators! 
         </p>
         <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mt-4">
           <a

@@ -1,5 +1,7 @@
 [
-  { "name": "Alice Kumar", "role": "Student Maintainer", "link": "https://github.com/" },
-  { "name": "Bob Singh", "role": "Resource Curator" },
-  { "name": "Charlie Verma", "role": "UI Tweaks" }
+  { "name": "Tejas Patil", "role": "Front-end dev", "link": "https://github.com/TejasPatil1" },
+  { "name": "Sushant", "role": "Resource Curator" },
+  { "name": "Darshan sonar", "role": "Admin panel Dev" },
+  
+  { "name": "Dipak saindane", "role": "UI tweaks" }
 ]

@@ -11,12 +11,12 @@ import { WhatsAppPage } from "@/components/PFG/whatsapp";
 import { ContributorsPage } from "@/components/PFG/contributors";
 
 // Sections
-import { Hero } from "@/components/PFG/hero";
+import { Hero } from "@/components/PFG/front";
 import { AboutPFLSection } from "@/components/sections/About";
 import { PeerLearningSection } from "@/components/sections/peer-learning";
 import { OpportunitiesSection } from "@/components/sections/opportunities";
 import { LearningTracksSection } from "@/components/sections/tracks";
-import { JoinPFLSection } from "@/components/sections/join";
+import { JoinPFGSection } from "@/components/sections/join";
 import { ContributorSection } from "@/components/sections/contributor";
 
 // ---------------- Video Background ----------------
@@ -92,7 +92,7 @@ function HomePage() {
       <PeerLearningSection />
       <OpportunitiesSection />
       <LearningTracksSection />
-      <JoinPFLSection />
+      <JoinPFGSection />
       <ContributorSection />
     </>
   );
@@ -116,7 +116,7 @@ export default function ClientApp() {
         </Routes>
       </main>
       <footer className="mx-auto max-w-6xl border-t px-4 py-8 text-sm text-muted-foreground relative z-10 text-center">
-        © {new Date().getFullYear()} Programming for Losers (PFL). Built for students.
+        © {new Date().getFullYear()} Programming for GenZs (PFG). Built for students.
       </footer>
     </Router>
   );
