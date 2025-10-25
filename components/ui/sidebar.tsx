@@ -1,15 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useMemo } from "react";
-import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 
-// ----- Dynamic imports (TypeScript-safe) -----
-const Sheet = dynamic(() => import("@/components/ui/sheet").then(mod => mod.Sheet), { ssr: false });
-const SheetContent = dynamic(() => import("@/components/ui/sheet").then(mod => mod.SheetContent), { ssr: false });
-const SheetHeader = dynamic(() => import("@/components/ui/sheet").then(mod => mod.SheetHeader), { ssr: false });
-const SheetTitle = dynamic(() => import("@/components/ui/sheet").then(mod => mod.SheetTitle), { ssr: false });
-const SheetDescription = dynamic(() => import("@/components/ui/sheet").then(mod => mod.SheetDescription), { ssr: false });
 
 // ----- Constants -----
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
@@ -54,8 +48,13 @@ export const SidebarProvider: React.FC<{ defaultOpen?: boolean; children: React.
   }, []);
 
   useEffect(() => {
-    if (mounted) {
+    if (!mounted) return;
+    // extra runtime guard to avoid `document` access during SSR/bundling
+    if (typeof document === "undefined") return;
+    try {
       document.cookie = `${SIDEBAR_COOKIE_NAME}=${open ? "expanded" : "collapsed"}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}; SameSite=Lax`;
+    } catch (e) {
+      // ignore cookie write errors in restricted environments
     }
   }, [open, mounted]);
 
