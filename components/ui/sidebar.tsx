@@ -1,87 +1,80 @@
 'use client';
 
-import * as React from "react";
-import { createContext, useContext, useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+import React, { createContext, useContext, useState, useEffect, useMemo } from "react";
 import dynamic from "next/dynamic";
+import { cn } from "@/lib/utils";
 
-// Lazy-load Sheet components to prevent SSR errors
+// ----- Dynamic imports (TypeScript-safe) -----
 const Sheet = dynamic(() => import("@/components/ui/sheet").then(mod => mod.Sheet), { ssr: false });
 const SheetContent = dynamic(() => import("@/components/ui/sheet").then(mod => mod.SheetContent), { ssr: false });
 const SheetHeader = dynamic(() => import("@/components/ui/sheet").then(mod => mod.SheetHeader), { ssr: false });
 const SheetTitle = dynamic(() => import("@/components/ui/sheet").then(mod => mod.SheetTitle), { ssr: false });
 const SheetDescription = dynamic(() => import("@/components/ui/sheet").then(mod => mod.SheetDescription), { ssr: false });
 
+// ----- Constants -----
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
-const SIDEBAR_WIDTH = "16rem";
+const SIDEBAR_WIDTH_DESKTOP = "16rem";
 const SIDEBAR_WIDTH_MOBILE = "14rem";
 
-type SidebarContextType = {
+// ----- Types -----
+export type SidebarState = "expanded" | "collapsed";
+
+export type SidebarContextType = {
   open: boolean;
-  setOpen: (open: boolean) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   openMobile: boolean;
-  setOpenMobile: (open: boolean) => void;
+  setOpenMobile: React.Dispatch<React.SetStateAction<boolean>>;
   isMobile: boolean;
-  state: "expanded" | "collapsed";
+  state: SidebarState;
 };
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
+// ----- Hook -----
 export function useSidebar() {
   const context = useContext(SidebarContext);
   if (!context) throw new Error("useSidebar must be used within a SidebarProvider");
   return context;
 }
 
-export function SidebarProvider({
-  defaultOpen = true,
-  children,
-}: {
-  defaultOpen?: boolean;
-  children: React.ReactNode;
-}) {
+// ----- Provider -----
+export const SidebarProvider: React.FC<{ defaultOpen?: boolean; children: React.ReactNode }> = ({ defaultOpen = true, children }) => {
   const [open, setOpen] = useState(defaultOpen);
   const [openMobile, setOpenMobile] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false); // client-only flag
+  const [mounted, setMounted] = useState(false);
 
-  // Detect screen size
   useEffect(() => {
+    setMounted(true);
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Mark as mounted (client-only)
-  useEffect(() => setMounted(true), []);
-
-  // Update cookie only on client
   useEffect(() => {
     if (mounted) {
-      document.cookie = `${SIDEBAR_COOKIE_NAME}=${open ? "expanded" : "collapsed"}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+      document.cookie = `${SIDEBAR_COOKIE_NAME}=${open ? "expanded" : "collapsed"}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}; SameSite=Lax`;
     }
-  }, [mounted, open]);
+  }, [open, mounted]);
 
-  const value: SidebarContextType = React.useMemo(
-    () => ({
-      open,
-      setOpen,
-      openMobile,
-      setOpenMobile,
-      isMobile,
-      state: (open ? "expanded" : "collapsed") as "expanded" | "collapsed",
-    }),
-    [open, openMobile, isMobile]
-  );
+  const value = useMemo<SidebarContextType>(() => ({
+    open,
+    setOpen,
+    openMobile,
+    setOpenMobile,
+    isMobile,
+    state: open ? "expanded" : "collapsed",
+  }), [open, openMobile, isMobile]);
 
-  if (!mounted) return null; // avoid SSR render
+  if (!mounted) return null; // prevent SSR flicker
 
   return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
-}
+};
 
-export function SidebarTrigger() {
+// ----- Mobile trigger -----
+export const SidebarTrigger: React.FC = () => {
   const { open, setOpen } = useSidebar();
   return (
     <button
@@ -91,26 +84,24 @@ export function SidebarTrigger() {
       ☰
     </button>
   );
-}
+};
 
-export function SidebarInset({ children }: { children: React.ReactNode }) {
-  return <div className="flex min-h-screen flex-1 flex-col md:pl-[--sidebar-width]">{children}</div>;
-}
+// ----- Page wrapper -----
+export const SidebarInset: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return <div className="flex min-h-screen flex-1 flex-col md:pl-[16rem]">{children}</div>;
+};
 
-// Main Sidebar
-export function Sidebar({
+// ----- Main Sidebar -----
+export const Sidebar: React.FC<React.ComponentProps<"div"> & { side?: "left" | "right"; collapsible?: "offcanvas" | "icon" | "none"; }> = ({
   side = "left",
   collapsible = "offcanvas",
   className,
   children,
   ...props
-}: React.ComponentProps<"div"> & {
-  side?: "left" | "right";
-  collapsible?: "offcanvas" | "icon" | "none";
-}) {
-  const { isMobile, state, openMobile, setOpenMobile, open } = useSidebar();
+}) => {
+  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
-  // MOBILE SIDEBAR
+  // Mobile Sidebar
   if (isMobile) {
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
@@ -118,8 +109,8 @@ export function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
-          style={{ "--sidebar-width": SIDEBAR_WIDTH_MOBILE } as React.CSSProperties}
+          className="bg-sidebar text-sidebar-foreground p-0 [&>button]:hidden"
+          style={{ width: SIDEBAR_WIDTH_MOBILE }}
           side={side}
         >
           <SheetHeader className="sr-only">
@@ -132,12 +123,13 @@ export function Sidebar({
     );
   }
 
-  // DESKTOP SIDEBAR
+  // Desktop Sidebar (non-collapsible)
   if (collapsible === "none") {
     return (
       <div
         data-slot="sidebar"
-        className={cn("bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col", className)}
+        className={cn("bg-sidebar text-sidebar-foreground flex h-full", className)}
+        style={{ width: SIDEBAR_WIDTH_DESKTOP }}
         {...props}
       >
         {children}
@@ -145,6 +137,7 @@ export function Sidebar({
     );
   }
 
+  // Desktop Sidebar (collapsible)
   return (
     <div
       className="group peer text-sidebar-foreground hidden md:block"
@@ -153,16 +146,21 @@ export function Sidebar({
       data-side={side}
       data-slot="sidebar"
     >
-      <div data-slot="sidebar-gap" className="relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear" />
+      <div
+        data-slot="sidebar-gap"
+        className="relative w-0 bg-transparent transition-[width] duration-200 ease-linear"
+        style={{ width: SIDEBAR_WIDTH_DESKTOP }}
+      />
       <div
         data-slot="sidebar-container"
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+          "fixed inset-y-0 z-10 hidden h-screen transition-[left,right,width] duration-200 ease-linear md:flex",
           side === "left"
-            ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
-            : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
+            ? "left-0 group-data-[collapsible=offcanvas]:-left-[16rem]"
+            : "right-0 group-data-[collapsible=offcanvas]:-right-[16rem]",
           className
         )}
+        style={{ width: SIDEBAR_WIDTH_DESKTOP }}
         {...props}
       >
         <div data-sidebar="sidebar" data-slot="sidebar-inner" className="bg-sidebar flex h-full w-full flex-col">
@@ -171,4 +169,4 @@ export function Sidebar({
       </div>
     </div>
   );
-}
+};

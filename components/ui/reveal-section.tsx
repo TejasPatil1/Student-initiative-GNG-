@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import React from "react"
-import { cn } from "@/lib/utils"
+import React, { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
-type RevealVariant = "fade" | "slide-up"
+type RevealVariant = "fade" | "slide-up";
 
-interface RevealSectionProps extends React.HTMLAttributes<HTMLDivElement> {
-  as?: React.ElementType
-  variant?: RevealVariant
-  delayMs?: number
-  once?: boolean
-  threshold?: number
+interface RevealSectionProps extends React.HTMLAttributes<HTMLElement> {
+  as?: React.ElementType;
+  variant?: RevealVariant;
+  delayMs?: number;
+  once?: boolean;
+  threshold?: number;
 }
 
 export function RevealSection({
@@ -23,53 +23,57 @@ export function RevealSection({
   threshold = 0.2,
   ...props
 }: RevealSectionProps) {
-  const ref = React.useRef<HTMLElement | null>(null)
-  const [visible, setVisible] = React.useState(false)
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
 
-  React.useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      setVisible(true)
-      return
+      setVisible(true);
+      return;
     }
 
-    const node = ref.current
-    if (!node) return
+    const node = ref.current;
+    if (!node) return;
 
-    let timer: number | undefined
+    let timer: number | undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             if (delayMs > 0) {
-              timer = window.setTimeout(() => setVisible(true), delayMs)
+              timer = window.setTimeout(() => setVisible(true), delayMs);
             } else {
-              setVisible(true)
+              setVisible(true);
             }
-            if (once) observer.unobserve(entry.target)
+            if (once) observer.unobserve(entry.target);
           } else if (!once) {
-            setVisible(false)
+            setVisible(false);
           }
-        })
+        });
       },
-      { threshold },
-    )
+      { threshold }
+    );
 
-    observer.observe(node)
+    observer.observe(node);
     return () => {
-      if (timer !== undefined) window.clearTimeout(timer)
-      observer.disconnect()
-    }
-  }, [delayMs, once, threshold])
+      if (timer !== undefined) window.clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [delayMs, once, threshold]);
 
-  const base = "transition-all duration-700 ease-out will-change-transform will-change-opacity"
-  const hidden = variant === "fade" ? "opacity-0" : "opacity-0 translate-y-6 md:translate-y-8"
-  const shown = variant === "fade" ? "opacity-100" : "opacity-100 translate-y-0"
+  const baseClasses =
+    "transition-all duration-700 ease-out will-change-transform will-change-opacity";
+  const hiddenClasses =
+    variant === "fade" ? "opacity-0" : "opacity-0 translate-y-6 md:translate-y-8";
+  const visibleClasses = variant === "fade" ? "opacity-100" : "opacity-100 translate-y-0";
 
   return (
-    <Tag ref={ref as any} className={cn(base, visible ? shown : hidden, className)} {...props}>
+    <Tag ref={ref} className={cn(baseClasses, visible ? visibleClasses : hiddenClasses, className)} {...props}>
       {children}
     </Tag>
-  )
+  );
 }
