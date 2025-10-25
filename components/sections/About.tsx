@@ -29,7 +29,7 @@ export function AboutPFLSection() {
 </p>
 
 <p className="mt-4 md:mt-6 text-lg md:text-xl text-gray-200 leading-relaxed max-w-4xl mx-auto">
-  We believe everyone starts somewhere — and at <strong>Programming for GenZ</strong>, we start as learners and rise as innovators.
+  We believe everyone starts somewhere and at <strong>Programming for GenZ</strong>, we start as learners and rise as innovators.
 </p>
 
         </div>
