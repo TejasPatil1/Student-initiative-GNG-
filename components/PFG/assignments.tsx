@@ -39,8 +39,8 @@ export function AssignmentsPage() {
   const set = (k: string, v: string) => setValues((s) => ({ ...s, [k]: v }));
 
   return (
-    <section className="space-y-10 pt-24 px-4 md:px-8 relative z-10">
-       <div className="relative z-10 mx-auto mt-25 max-w-8xl rounded-xl bg-blue/20 backdrop-blur-md p-25 shadow-lg text-center">
+    <section className="space-y-10 pt-2 px-4 md:px-8 relative z-10">
+       <div className="relative z-10 mx-auto  max-w-8xl rounded-xl bg-blue/20 backdrop-blur-md p-25 shadow-lg text-center">
       {/* Page Heading */}
       <header className="relative z-10 my-8 text-center">
         <h2 className="font-[var(--font-orbitron)] text-4xl sm:text-5xl md:text-6xl tracking-tight text-white">
@@ -49,9 +49,11 @@ export function AssignmentsPage() {
       </header>
 
       {/* Filters */}
-     <div className="flex justify-center mt-8">
-  <div className="w-full max-w-8xl px-4">
-    <div className="flex flex-wrap justify-center gap-6 scale-110">
+     {/* Filters */}
+{/* Filters */}
+<div className="mt-10 w-full">
+  <div className="w-full max-w-[1200px] mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full">
       <Filters
         filters={{ subject: subjects, semester: semesters }}
         values={values}
@@ -60,6 +62,9 @@ export function AssignmentsPage() {
     </div>
   </div>
 </div>
+
+
+
 
       {/* Grid of Assignments */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-8">

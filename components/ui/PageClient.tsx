@@ -19,8 +19,6 @@ import { LearningTracksSection } from "@/components/sections/tracks";
 import { JoinPFLSection } from "@/components/sections/join";
 import { ContributorSection } from "@/components/sections/contributor";
 
-
-
 // ---------------- Video Background ----------------
 export function VideoBackground() {
   const [mounted, setMounted] = useState(false);
@@ -44,12 +42,18 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-3 py-2 sm:px-4 sm:py-3">
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-md bg-primary/10 ring-1 ring-primary/25"></div>
           <span className="font-mono text-lg tracking-wide">PFG</span>
         </div>
-        <button className="md:hidden btn" onClick={() => setOpen(v => !v)}>Menu</button>
+        <button
+          className="md:hidden btn px-3 py-2 text-xs sm:text-sm"
+          aria-label="Toggle menu"
+          onClick={() => setOpen(v => !v)}
+        >
+          Menu
+        </button>
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((path, i) => (
             <NavLink key={i} to={path} end={path === "/"} className={({ isActive }) => isActive ? "nav-link nav-link-active" : "nav-link"}>
@@ -58,11 +62,17 @@ export function Navbar() {
           ))}
         </div>
       </nav>
+
       {open && (
         <div className="border-t bg-background/95 md:hidden">
-          <div className="mx-auto flex max-w-6xl flex-col px-4 py-2">
+          <div className="mx-auto flex max-w-6xl flex-col px-3 py-2 sm:px-4">
             {navLinks.map((path, i) => (
-              <NavLink key={i} to={path} className="nav-link" onClick={() => setOpen(false)}>
+              <NavLink
+                key={i}
+                to={path}
+                className="nav-link py-2.5"
+                onClick={() => setOpen(false)}
+              >
                 {path === "/" ? "Home" : path.slice(1).toUpperCase()}
               </NavLink>
             ))}
@@ -111,4 +121,3 @@ export default function ClientApp() {
     </Router>
   );
 }
-

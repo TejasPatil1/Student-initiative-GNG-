@@ -47,8 +47,8 @@ export function PYQsPage() {
   const set = (k: string, v: string) => setValues((s) => ({ ...s, [k]: v }))
 
   return (
-    <section className="space-y-8 pt-24 px-4 md:px-8 relative z-10">
-       <div className="relative z-10 mx-auto mt-25 max-w-5xl rounded-xl bg-white/20 backdrop-blur-md p-25 shadow-lg text-center">
+    <section className="space-y-8 pt-2 px-4 md:px-8 relative z-10">
+       <div className="relative z-10 mx-auto  max-w-5xl rounded-xl bg-blue/20 backdrop-blur-md p-25 shadow-lg text-center">
       {/* Header */}
       <header className="relative z-10 my-8 text-center flex flex-col items-center gap-3">
         <h2 className="font-[var(--font-orbitron)] text-4xl sm:text-5xl md:text-5xl lg:text-6xl tracking-tight text-white">
