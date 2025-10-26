@@ -12,7 +12,7 @@ import { ContributorsPage } from "@/components/PFG/contributors";
 
 // Sections
 import { Hero } from "@/components/PFG/front";
-import { AboutPFLSection } from "@/components/sections/About";
+import { AboutPFGSection } from "@/components/sections/About";
 import { PeerLearningSection } from "@/components/sections/peer-learning";
 import { OpportunitiesSection } from "@/components/sections/opportunities";
 import { LearningTracksSection } from "@/components/sections/tracks";
@@ -88,7 +88,7 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <AboutPFLSection />
+      <AboutPFGSection />
       <PeerLearningSection />
       <OpportunitiesSection />
       <LearningTracksSection />

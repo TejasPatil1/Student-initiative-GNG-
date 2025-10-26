@@ -1,0 +1,7 @@
+{
+  // Prevent VS Code from trying to download JSON schemas from schemastore.org
+  // which can produce `getaddrinfo ENOTFOUND` errors when offline or behind
+  // a restrictive network/proxy. This avoids the diagnostic shown in the
+  // editor for `tsconfig.json`.
+  "json.schemaDownload.enable": false
+}
