@@ -1,5 +1,5 @@
 "use client";
-import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import { useState } from "react";
 
 // Pages
