@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import "./globals.css";
 
 // Font configurations
+
 const orbitron = Orbitron({
   subsets: ["latin"],
   variable: "--font-orbitron",
@@ -19,11 +20,52 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"], // Customize weights as needed
 });
-
 export const metadata: Metadata = {
-  title: "CodeX Club (CXC)",
-  description: "Created with Next.js",
+  title: "Codex Club | Student Initiative GNG",
+  description:
+    "Codex Club (CXC) — a student-driven platform for courses, assignments, PYQs, community learning, and tech collaboration.",
+  keywords: [
+    "Codex Club",
+    "CXC",
+    "Student Initiative",
+    "GNG",
+    "Courses",
+    "Assignments",
+    "PYQs",
+    "Tech Club",
+    "Student Projects",
+    "Coding Community",
+  ],
+  authors: [{ name: "Codex Club Team" }],
   generator: "Next.js",
+  openGraph: {
+    title: "Codex Club | Student Initiative GNG",
+    description:
+      "A student-driven tech community offering resources, assignments, PYQs, and learning opportunities.",
+    url: "https://student-initiative-gng.vercel.app/",
+    siteName: "Codex Club",
+    images: [
+      {
+        url: "https://student-initiative-gng.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Codex Club Banner",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
