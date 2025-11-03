@@ -21,7 +21,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Programming for GenZ (PFG)",
+  title: "CodeX Club (CXC)",
   description: "Created with Next.js",
   generator: "Next.js",
 };

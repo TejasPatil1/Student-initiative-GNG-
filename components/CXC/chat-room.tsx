@@ -31,7 +31,7 @@ export function ChatRoom() {
           Chat Room
         </h2>
         <p className="mt-1 text-sm text-gray-300">
-          Frontend-only mock chat. Real-time can be added later with Firebase.
+          Chat Room is Under Maintainance.........
         </p>
       </header>
 

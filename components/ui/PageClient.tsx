@@ -3,20 +3,20 @@ import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import { useState } from "react";
 
 // Pages
-import { PYQsPage } from "@/components/PFG/pyqs";
-import { AssignmentsPage } from "@/components/PFG/assignments";
-import { CoursesPage } from "@/components/PFG/courses";
-import { ChatRoom } from "@/components/PFG/chat-room";
-import { WhatsAppPage } from "@/components/PFG/whatsapp";
-import { ContributorsPage } from "@/components/PFG/contributors";
+import { PYQsPage } from "@/components/CXC/pyqs";
+import { AssignmentsPage } from "@/components/CXC/assignments";
+import { CoursesPage } from "@/components/CXC/courses";
+import { ChatRoom } from "@/components/CXC/chat-room";
+import { WhatsAppPage } from "@/components/CXC/whatsapp";
+import { ContributorsPage } from "@/components/CXC/contributors";
 
 // Sections
-import { Hero } from "@/components/PFG/front";
-import { AboutPFGSection } from "@/components/sections/About";
+import { Hero } from "@/components/CXC/front";
+import { AboutCXCSection } from "@/components/sections/About";
 import { PeerLearningSection } from "@/components/sections/peer-learning";
 import { OpportunitiesSection } from "@/components/sections/opportunities";
 import { LearningTracksSection } from "@/components/sections/tracks";
-import { JoinPFGSection } from "@/components/sections/join";
+import { JoinCXCSection } from "@/components/sections/join";
 import { ContributorSection } from "@/components/sections/contributor";
 
 // ---------------- Video Background ----------------
@@ -45,7 +45,7 @@ export function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-3 py-2 sm:px-4 sm:py-3">
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-md bg-primary/10 ring-1 ring-primary/25"></div>
-          <span className="font-mono text-lg tracking-wide">PFG</span>
+          <span className="font-mono text-lg tracking-wide">CXC</span>
         </div>
         <button
           className="md:hidden btn px-3 py-2 text-xs sm:text-sm"
@@ -88,11 +88,11 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <AboutPFGSection />
+      <AboutCXCSection />
       <PeerLearningSection />
       <OpportunitiesSection />
       <LearningTracksSection />
-      <JoinPFGSection />
+      <JoinCXCSection />
       <ContributorSection />
     </>
   );
@@ -116,7 +116,7 @@ export default function ClientApp() {
         </Routes>
       </main>
       <footer className="mx-auto max-w-6xl border-t px-4 py-8 text-sm text-muted-foreground relative z-10 text-center">
-        © {new Date().getFullYear()} Programming for GenZs (PFG). Built for students.
+        © {new Date().getFullYear()} CodeX Club (CXC). Built for students.
       </footer>
     </Router>
   );

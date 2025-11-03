@@ -17,7 +17,7 @@ export function Hero() {
         {/* Main content */}
         <div className="relative z-10 flex flex-col items-center justify-center text-center space-y-6 sm:space-y-8 max-w-3xl mx-auto px-4 py-12">
   <h1 className="font-[(--font-orbitron)] text-3xl sm:text-4xl md:text-6xl tracking-tight text-white font-bold">
-    Programming for GenZs
+    CodeX Club
   </h1>
   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
     Turning coding struggles into success stories. Be part of our student-driven community of future programmers and innovators!
