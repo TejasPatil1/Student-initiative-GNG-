@@ -20,6 +20,8 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"], // Customize weights as needed
 });
+
+
 export const metadata: Metadata = {
   title: "Codex Club | Student Initiative GNG",
   description:
@@ -35,9 +37,15 @@ export const metadata: Metadata = {
     "Tech Club",
     "Student Projects",
     "Coding Community",
+    "Hackathons",
+    "AI Learning",
   ],
-  authors: [{ name: "Codex Club Team" }],
+  authors: [{ name: "Codex Club Team", url: "https://student-initiative-gng.vercel.app/" }],
   generator: "Next.js",
+  metadataBase: new URL("https://student-initiative-gng.vercel.app"),
+  alternates: {
+    canonical: "https://student-initiative-gng.vercel.app/",
+  },
   openGraph: {
     title: "Codex Club | Student Initiative GNG",
     description:
@@ -52,8 +60,16 @@ export const metadata: Metadata = {
         alt: "Codex Club Banner",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN", // India-based for better regional targeting
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Codex Club | Student Initiative GNG",
+    description:
+      "Join Codex Club (CXC) — a student community for coding, learning, and tech collaboration.",
+    images: ["https://student-initiative-gng.vercel.app/og-image.png"],
+    creator: "@CodexClub",
   },
   robots: {
     index: true,
@@ -66,7 +82,12 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  category: "education",
 };
+
 
 export default function RootLayout({
   children,
