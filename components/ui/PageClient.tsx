@@ -1,6 +1,6 @@
 "use client";
 import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 
 // Pages
 import { PYQsPage } from "@/components/CXC/pyqs";
@@ -20,16 +20,30 @@ import { JoinCXCSection } from "@/components/sections/join";
 import { ContributorSection } from "@/components/sections/contributor";
 
 // ---------------- Video Background ----------------
+
 export function VideoBackground() {
   const [mounted, setMounted] = useState(false);
-  useState(() => setMounted(true));
+
+  // ✅ Correct useEffect to ensure the component renders only after mount (fixes hydration issues)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden">
-      <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover">
+    // ✅ Added data-nosnippet so Google ignores this video
+    <div className="fixed inset-0 z-0 overflow-hidden" data-nosnippet>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
         <source src="/Background.mp4" type="video/mp4" />
       </video>
+      {/* ✅ Optional overlay for better contrast */}
       <div className="absolute inset-0 bg-black/40"></div>
     </div>
   );
