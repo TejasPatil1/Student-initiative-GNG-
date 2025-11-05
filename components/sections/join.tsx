@@ -4,7 +4,7 @@ import Link from "next/link";
 import { RevealSection } from "@/components/ui/reveal-section";
 import { cn } from "@/lib/utils";
 
-export function JoinCXCSection() {
+export function JoinPFGSection() {
   return (
     <RevealSection variant="slide-up" className="min-h-screen flex items-center py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-4 md:px-6 w-full">
@@ -14,7 +14,7 @@ export function JoinCXCSection() {
           )}
         >
           <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-white text-center">
-  Join CXC Today
+  Join PFG Today
 </h2>
 
           <p className="mt-4 font-sans text-gray-200 leading-relaxed max-w-4xl mx-auto text-lg md:text-xl">

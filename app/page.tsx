@@ -1,20 +1,20 @@
 
 
 export const metadata = {
-  title: "Codex Club | Coding, Courses & PYQs for Students",
+  title: "Programming for Genz | Coding, Courses & PYQs for Students",
   description:
-    "Join Codex Club — a student-driven coding community with assignments, PYQs, courses, and opportunities to grow in tech.",
+    "Join Programming for Genz — a student-driven coding community with assignments, PYQs, courses, and opportunities to grow in tech.",
   keywords:
-    "Codex Club, coding community, student coding platform, PYQs, programming courses, CodexClub",
+    "Programming for Genz, coding community, student coding platform, PYQs, programming courses, CodexClub",
   openGraph: {
-    title: "Codex Club | Coding Community",
+    title: "Programming for Genz | Coding Community",
     description:
-      "Explore Codex Club — a platform for students to learn, code, and collaborate.",
-    url: "https://codexclub.vercel.app",
-    siteName: "Codex Club",
+      "Explore Programming for Genz — a platform for students to learn, code, and collaborate.",
+    url: "https://programmingforgenz.vercel.app",
+    siteName: "Programming for Genz",
     images: [
       {
-        url: "https://codexclub.vercel.app/og-image.png",
+        url: "https://programmingforgenz.vercel.app/og-image.png",
         width: 1200,
         height: 630,
       },
