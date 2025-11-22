@@ -38,7 +38,7 @@ export function VideoBackground() {
   if (!mounted) return null;
 
   return (
-    // ✅ Added data-nosnippet so Google ignores this video
+    
     <div className="fixed inset-0 z-0 overflow-hidden" data-nosnippet>
       <video
         autoPlay
@@ -49,7 +49,7 @@ export function VideoBackground() {
       >
         <source src="/Background.mp4" type="video/mp4" />
       </video>
-      {/* ✅ Optional overlay for better contrast */}
+      {}
       <div className="absolute inset-0 bg-black/40"></div>
     </div>
   );

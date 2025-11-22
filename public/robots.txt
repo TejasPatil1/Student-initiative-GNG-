@@ -6,4 +6,4 @@ Disallow: /_next/
 Disallow: /api/
 
 # Sitemap location
-Sitemap: https://student-initiative-gng.vercel.app/sitemap.xml
+Sitemap: https://programmingforgenz.vercel.app/sitemap.xml
