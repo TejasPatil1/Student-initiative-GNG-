@@ -1,12 +1,8 @@
 "use client";
-export const metadata = {
-  title: "Programming for Genz (PFG) | Student Coding Community",
-  description:
-    "Join Programming for Genz — a student-driven tech community for coding, AI, courses, assignments, and collaborative learning opportunities.",
-};
 
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // Pages
 import { PYQsPage } from "@/components/PFG/pyqs";
@@ -47,7 +43,7 @@ export function VideoBackground() {
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover"
       >
-        <source src="/Background.mp4" type="video/mp4" />
+        <source src="/bg2.mp4" type="video/mp4" />
       </video>
       {}
       <div className="absolute inset-0 bg-black/40"></div>
@@ -55,9 +51,10 @@ export function VideoBackground() {
   );
 }
 
-// ---------------- Navbar ----------------
+// ----------------  Navbar ----------------
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const navLinks = ["/", "/pyqs", "/assignments", "/courses", "/chat", "/whatsapp", "/contributors"];
 
   return (
@@ -75,27 +72,37 @@ export function Navbar() {
           Menu
         </button>
         <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((path, i) => (
-            <NavLink key={i} to={path} end={path === "/"} className={({ isActive }) => isActive ? "nav-link nav-link-active" : "nav-link"}>
-              {path === "/" ? "Home" : path.slice(1).toUpperCase()}
-            </NavLink>
-          ))}
+          {navLinks.map((path, i) => {
+            const isActive = pathname === path || (path === "/" && pathname === "/");
+            return (
+              <Link
+                key={i}
+                href={path}
+                className={isActive ? "nav-link nav-link-active" : "nav-link"}
+              >
+                {path === "/" ? "Home" : path.slice(1).toUpperCase()}
+              </Link>
+            );
+          })}
         </div>
       </nav>
 
       {open && (
         <div className="border-t bg-background/95 md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col px-3 py-2 sm:px-4">
-            {navLinks.map((path, i) => (
-              <NavLink
-                key={i}
-                to={path}
-                className="nav-link py-2.5"
-                onClick={() => setOpen(false)}
-              >
-                {path === "/" ? "Home" : path.slice(1).toUpperCase()}
-              </NavLink>
-            ))}
+            {navLinks.map((path, i) => {
+              const isActive = pathname === path || (path === "/" && pathname === "/");
+              return (
+                <Link
+                  key={i}
+                  href={path}
+                  className={isActive ? "nav-link nav-link-active py-2.5" : "nav-link py-2.5"}
+                  onClick={() => setOpen(false)}
+                >
+                  {path === "/" ? "Home" : path.slice(1).toUpperCase()}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}
@@ -119,25 +126,25 @@ function HomePage() {
 }
 
 // ---------------- Main Client App ----------------
-export default function ClientApp() {
+export function ClientApp() {
+  const pathname = usePathname();
+  
   return (
-    <Router>
+    <>
       <VideoBackground />
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-12 relative z-10">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/pyqs" element={<PYQsPage />} />
-          <Route path="/assignments" element={<AssignmentsPage />} />
-          <Route path="/courses" element={<CoursesPage />} />
-          <Route path="/chat" element={<ChatRoom />} />
-          <Route path="/whatsapp" element={<WhatsAppPage />} />
-          <Route path="/contributors" element={<ContributorsPage />} />
-        </Routes>
+        {pathname === "/" && <HomePage />}
+        {pathname === "/pyqs" && <PYQsPage />}
+        {pathname === "/assignments" && <AssignmentsPage />}
+        {pathname === "/courses" && <CoursesPage />}
+        {pathname === "/chat" && <ChatRoom />}
+        {pathname === "/whatsapp" && <WhatsAppPage />}
+        {pathname === "/contributors" && <ContributorsPage />}
       </main>
       <footer className="mx-auto max-w-6xl border-t px-4 py-8 text-sm text-muted-foreground relative z-10 text-center">
         © {new Date().getFullYear()} Programming for Genz (PFG). Built for students.
       </footer>
-    </Router>
+    </>
   );
 }
