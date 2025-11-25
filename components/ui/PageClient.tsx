@@ -126,9 +126,9 @@ function HomePage() {
 }
 
 // ---------------- Main Client App ----------------
-export function ClientApp() {
+export default function PageClient() {
   const pathname = usePathname();
-  
+
   return (
     <>
       <VideoBackground />
