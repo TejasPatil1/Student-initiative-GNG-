@@ -40,21 +40,21 @@ export const metadata: Metadata = {
     "Hackathons",
     "AI Learning",
   ],
-  authors: [{ name: "Programming for Genz Team", url: "https://student-initiative-gng.vercel.app/" }],
+  authors: [{ name: "Programming for Genz Team", url: "https://programmingforgenz.vercel.app/" }],
   generator: "Next.js",
-  metadataBase: new URL("https://student-initiative-gng.vercel.app"),
+  metadataBase: new URL("https://programmingforgenz.vercel.app"),
   alternates: {
-    canonical: "https://student-initiative-gng.vercel.app/",
+    canonical: "https://programmingforgenz.vercel.app/",
   },
   openGraph: {
     title: "Programming for Genz | Student Initiative GNG",
     description:
       "A student-driven tech community offering resources, assignments, PYQs, and learning opportunities.",
-    url: "https://student-initiative-gng.vercel.app/",
+    url: "https://programmingforgenz.vercel.app/",
     siteName: "Programming for Genz",
     images: [
       {
-        url: "https://student-initiative-gng.vercel.app/og-image.png",
+        url: "https://programmingforgenz.vercel.app/og-image.png",
         width: 1200,
         height: 630,
         alt: "Programming for Genz Banner",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "Programming for Genz | Student Initiative GNG",
     description:
       "Join Programming for Genz (PFG) — a student community for coding, learning, and tech collaboration.",
-    images: ["https://student-initiative-gng.vercel.app/og-image.png"],
+    images: ["https://programmingforgenz.vercel.app/og-image.png"],
     creator: "@CodexClub",
   },
   robots: {
